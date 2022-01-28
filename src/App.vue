@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 const width = ref(500);
 const height = ref(500);
 const randomNumber = ref(0);
-const seed = ref("");
+const seed = ref(
+  Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15)
+);
 
 // computed url
 const url = computed(() => {
@@ -32,7 +35,7 @@ const onSubmit = (e: Event) => {
 
 <template>
   <div
-    class="min-w-screen min-h-screen flex flex-col items-center justify-center gap-10"
+    class="flex flex-col items-center justify-center min-h-screen gap-10 min-w-screen"
   >
     <form class="border shadow-lg rounded-lg w-[500px] p-10" @submit="onSubmit">
       <div class="grid grid-cols-2 gap-4">
@@ -40,18 +43,18 @@ const onSubmit = (e: Event) => {
         <input
           type="number"
           v-model="width"
-          class="border border-gray-400 p-2 w-full"
+          class="w-full p-2 border border-gray-400"
         />
         <label class="text-gray-700">Height</label>
         <input
           type="number"
           v-model="height"
-          class="border border-gray-400 p-2 w-full"
+          class="w-full p-2 border border-gray-400"
         />
       </div>
       <button
         type="submit"
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
       >
         Shuffle
       </button>
@@ -60,7 +63,7 @@ const onSubmit = (e: Event) => {
     <div class="w-[500px] h-[500px]">
       <img
         :src="url"
-        class="w-full h-full rounded-lg shadow-lg object-contain"
+        class="object-contain w-full h-full rounded-lg shadow-lg"
         alt="random image"
       />
     </div>
